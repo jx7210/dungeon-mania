@@ -43,7 +43,6 @@ public class Switch extends Entity {
         }
     }
 
-    @Override
     public void onMovedAway(GameMap map, Entity entity) {
         if (entity instanceof Boulder) {
             activated = false;
@@ -52,10 +51,5 @@ public class Switch extends Entity {
 
     public boolean isActivated() {
         return activated;
-    }
-
-    @Override
-    public void onDestroy(GameMap gameMap) {
-        return;
     }
 }

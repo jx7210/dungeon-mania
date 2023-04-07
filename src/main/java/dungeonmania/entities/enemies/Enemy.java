@@ -8,7 +8,7 @@ import dungeonmania.entities.Player;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
-public abstract class Enemy extends Entity implements Battleable {
+public abstract class Enemy extends Unsubscribable implements Battleable {
     private BattleStatistics battleStatistics;
 
     public Enemy(Position position, double health, double attack) {
@@ -33,17 +33,6 @@ public abstract class Enemy extends Entity implements Battleable {
             Player player = (Player) entity;
             map.getGame().battle(player, this);
         }
-    }
-
-    @Override
-    public void onDestroy(GameMap map) {
-        Game g = map.getGame();
-        g.unsubscribe(getId());
-    }
-
-    @Override
-    public void onMovedAway(GameMap map, Entity entity) {
-        return;
     }
 
     public abstract void move(Game game);
