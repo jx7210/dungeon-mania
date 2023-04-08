@@ -13,8 +13,4 @@ public class Exit extends Entity {
         return true;
     }
 
-    @Override
-    public void onOverlap(GameMap map, Entity entity) {
-        return;
-    }
 }

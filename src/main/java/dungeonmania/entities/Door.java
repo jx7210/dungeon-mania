@@ -7,7 +7,7 @@ import dungeonmania.entities.enemies.Spider;
 import dungeonmania.entities.inventory.Inventory;
 import dungeonmania.util.Position;
 
-public class Door extends Entity {
+public class Door extends Entity implements Overlapable {
     private boolean open = false;
     private int number;
 

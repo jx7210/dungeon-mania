@@ -5,7 +5,7 @@ import dungeonmania.map.GameMap;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
-public class Boulder extends Entity {
+public class Boulder extends Entity implements Overlapable {
     public Boulder(Position position) {
         super(position.asLayer(Entity.CHARACTER_LAYER));
     }

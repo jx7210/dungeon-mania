@@ -8,7 +8,7 @@ import dungeonmania.entities.enemies.ZombieToast;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
-public class Portal extends Entity {
+public class Portal extends Entity implements Overlapable {
     private ColorCodedType color;
     private Portal pair;
 

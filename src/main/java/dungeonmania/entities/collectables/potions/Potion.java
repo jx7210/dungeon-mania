@@ -9,7 +9,7 @@ import dungeonmania.entities.inventory.InventoryItem;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
-public abstract class Potion extends Entity implements InventoryItem, BattleItem {
+public abstract class Potion extends Entity implements InventoryItem, BattleItem, Overlapable {
     private int duration;
 
     public Potion(Position position, int duration) {

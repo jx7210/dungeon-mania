@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import dungeonmania.Game;
 import dungeonmania.entities.Entity;
+import dungeonmania.entities.Overlapable;
 import dungeonmania.entities.Player;
 import dungeonmania.entities.Portal;
 import dungeonmania.entities.Switch;
@@ -118,8 +119,8 @@ public class GameMap {
     private void triggerOverlapEvent(Entity entity) {
         List<Runnable> overlapCallbacks = new ArrayList<>();
         getEntities(entity.getPosition()).forEach(e -> {
-            if (e != entity)
-                overlapCallbacks.add(() -> e.onOverlap(this, entity));
+            if (e != entity && e instanceof Overlapable)
+                overlapCallbacks.add(() -> ((Overlapable) e).onOverlap(this, entity));
         });
         overlapCallbacks.forEach(callback -> {
             callback.run();

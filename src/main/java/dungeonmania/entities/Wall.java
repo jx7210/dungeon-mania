@@ -14,8 +14,4 @@ public class Wall extends Entity {
         return entity instanceof Spider;
     }
 
-    @Override
-    public void onOverlap(GameMap map, Entity entity) {
-        return;
-    }
 }

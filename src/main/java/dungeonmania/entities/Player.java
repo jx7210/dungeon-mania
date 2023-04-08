@@ -20,7 +20,7 @@ import dungeonmania.map.GameMap;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
-public class Player extends Entity implements Battleable {
+public class Player extends Entity implements Battleable, Overlapable {
     public static final double DEFAULT_ATTACK = 5.0;
     public static final double DEFAULT_HEALTH = 5.0;
     private BattleStatistics battleStatistics;
