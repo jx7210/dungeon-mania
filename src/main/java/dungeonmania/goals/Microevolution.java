@@ -8,8 +8,8 @@ public class Microevolution implements Goal {
 
     @Override
     public boolean achieved(Game game) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'achieved'");
+        return true;
+        // return (game.getDestroyedEnemiesCount() >= target && (game.getMap().getSpawnerCount() == 0));
     }
 
     @Override
