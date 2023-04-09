@@ -5,7 +5,7 @@ import dungeonmania.entities.inventory.InventoryItem;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
-public class Key extends Entity implements InventoryItem {
+public class Key extends Entity implements InventoryItem, Effectible {
     private int number;
 
     public Key(Position position, int number) {

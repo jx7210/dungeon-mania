@@ -5,7 +5,7 @@ import dungeonmania.entities.inventory.InventoryItem;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
-public class Wood extends Entity implements InventoryItem {
+public class Wood extends Entity implements InventoryItem, Effectible {
     public Wood(Position position) {
         super(position);
     }
