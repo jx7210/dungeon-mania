@@ -45,15 +45,9 @@ public class Bomb extends Entity implements InventoryItem, Effectible {
 
     @Override
     public void onOverlap(GameMap map, Entity entity) {
-        if (state != State.SPAWNED)
-            return;
         if (entity instanceof Player) {
-            if (!((Player) entity).pickUp(this))
-                return;
             subs.stream().forEach(s -> s.unsubscribe(this));
-            map.destroyEntity(this);
         }
-        this.state = State.INVENTORY;
     }
 
     public void onPutDown(GameMap map, Position p) {
@@ -84,5 +78,9 @@ public class Bomb extends Entity implements InventoryItem, Effectible {
 
     public State getState() {
         return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 }
