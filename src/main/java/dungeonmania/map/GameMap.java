@@ -264,4 +264,8 @@ public class GameMap {
     public void setGame(Game game) {
         this.game = game;
     }
+
+    public int countSpawners() {
+        return getEntities(ZombieToastSpawner.class).size();
+    }
 }
