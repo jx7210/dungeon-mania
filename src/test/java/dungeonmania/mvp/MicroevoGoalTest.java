@@ -16,25 +16,10 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 public class MicroevoGoalTest {
-    // no enemies all spawners
+    // dungeon config = 1 spider, 0 spawner to defeat
+    // beat spider and pass both goals
     @Test
     @Tag("16-1")
-    @DisplayName("Test 0 enemies all spawners")
-
-    public void testPlayerKillsAtLeastFiveEnemies() {
-
-        DungeonManiaController dmc = new DungeonManiaController();
-        DungeonResponse res = dmc.newGame("d_testMicro", "c_testMicro");
-
-        // assert goal not met
-        // assertTrue(TestUtils.getGoals(res).contains(":boulders"));
-
-        // assertTrue(initPlayer.getDefeatedEnemiesCount() >= 1);
-        // get Player
-    }
-
-    @Test
-    @Tag("16-2")
     @DisplayName("Test player battles spider and spider dies")
     public void testSpiderDiesWhenBattle() {
         DungeonManiaController controller = new DungeonManiaController();
