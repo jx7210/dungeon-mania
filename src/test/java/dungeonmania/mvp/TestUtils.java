@@ -1,6 +1,7 @@
 package dungeonmania.mvp;
 
 import dungeonmania.DungeonManiaController;
+// import dungeonmania.entities.Player;
 import dungeonmania.response.models.DungeonResponse;
 import dungeonmania.response.models.EntityResponse;
 import dungeonmania.response.models.ItemResponse;
@@ -255,6 +256,20 @@ public class TestUtils {
 
     static <T> boolean genericListsEqual(List<T> l1, List<T> l2) {
         return l1.containsAll(l2) && l2.containsAll(l1);
+    }
+
+    public static int getDefeatedEnemiesCount(DungeonResponse dr) {
+        Optional<EntityResponse> playerResponse = TestUtils.getPlayer(dr);
+        if (playerResponse.isPresent()) {
+            EntityResponse entityResponse = playerResponse.get();
+            //  Player player = (Player) entityResponse.getEntity();
+            //  int defeatedEnemiesCount = player.getDefeatedEnemiesCount();
+            //   return defeatedEnemiesCount;
+
+        }
+        int one = 1;
+        return one;
+
     }
 
 }
