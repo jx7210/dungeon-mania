@@ -7,7 +7,7 @@ import dungeonmania.entities.collectables.Bomb;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
-public class Switch extends Entity implements Overlapable {
+public class Switch extends Entity implements Effectible {
     private boolean activated;
     private List<Bomb> bombs = new ArrayList<>();
 

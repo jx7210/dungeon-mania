@@ -4,13 +4,13 @@ import dungeonmania.Game;
 import dungeonmania.battles.BattleStatistics;
 import dungeonmania.entities.BattleItem;
 import dungeonmania.entities.Entity;
-import dungeonmania.entities.Overlapable;
+import dungeonmania.entities.Effectible;
 import dungeonmania.entities.Player;
 import dungeonmania.entities.inventory.InventoryItem;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
-public abstract class Potion extends Entity implements InventoryItem, BattleItem, Overlapable {
+public abstract class Potion extends Entity implements InventoryItem, BattleItem, Effectible {
     private int duration;
 
     public Potion(Position position, int duration) {

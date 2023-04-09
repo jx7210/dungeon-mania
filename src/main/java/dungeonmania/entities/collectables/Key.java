@@ -1,13 +1,13 @@
 package dungeonmania.entities.collectables;
 
 import dungeonmania.entities.Entity;
-import dungeonmania.entities.Overlapable;
+import dungeonmania.entities.Effectible;
 import dungeonmania.entities.Player;
 import dungeonmania.entities.inventory.InventoryItem;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
-public class Key extends Entity implements InventoryItem, Overlapable {
+public class Key extends Entity implements InventoryItem, Effectible {
     private int number;
 
     public Key(Position position, int number) {
