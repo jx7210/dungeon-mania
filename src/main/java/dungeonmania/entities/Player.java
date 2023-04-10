@@ -30,6 +30,8 @@ public class Player extends Entity implements Battleable, Effectible {
     private Potion inEffective = null;
     private int nextTrigger = 0;
 
+    private int defeatedEnemiesCount;
+
     private int collectedTreasureCount = 0;
 
     private PlayerState state;
@@ -40,6 +42,7 @@ public class Player extends Entity implements Battleable, Effectible {
                 BattleStatistics.DEFAULT_PLAYER_DAMAGE_REDUCER);
         inventory = new Inventory();
         state = new BaseState(this);
+        defeatedEnemiesCount = 0;
     }
 
     public int getCollectedTreasureCount() {
@@ -182,5 +185,13 @@ public class Player extends Entity implements Battleable, Effectible {
             return BattleStatistics.applyBuff(origin, new BattleStatistics(0, 0, 0, 1, 1, false, false));
         }
         return origin;
+    }
+
+    public void defeatEnemy() {
+        defeatedEnemiesCount++;
+    }
+
+    public int getDefeatedEnemiesCount() {
+        return defeatedEnemiesCount;
     }
 }
