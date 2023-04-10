@@ -87,4 +87,14 @@ public class MicroevoGoalTest {
         // assert goal met
         assertEquals("", TestUtils.getGoals(initialResponse));
     }
+
+    // Dungeon Config = 1 enemy, 1 spawner to defeat
+    // Beat spawner to pass goal
+    @Test
+    @Tag("16-3")
+    @DisplayName("Test player breaks Spawner + kills spider")
+    public void testThree() {
+        // kill spider + break spawner
+
+    }
 }

@@ -3,6 +3,7 @@ package dungeonmania.entities;
 import dungeonmania.map.GameMap;
 
 import dungeonmania.entities.collectables.Key;
+// import dungeonmania.entities.collectables.Sunstone;
 import dungeonmania.entities.enemies.Spider;
 import dungeonmania.entities.inventory.Inventory;
 import dungeonmania.util.Position;
@@ -44,6 +45,11 @@ public class Door extends Entity implements Effectible {
         Key key = inventory.getFirst(Key.class);
 
         return (key != null && key.getnumber() == number);
+    }
+
+    private boolean hasSunStone(Player player) {
+        // use sunstone to open door + RETAIN sunstone
+        return true;
     }
 
     public boolean isOpen() {
