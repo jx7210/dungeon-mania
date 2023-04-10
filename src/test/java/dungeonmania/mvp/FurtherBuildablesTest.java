@@ -118,8 +118,37 @@ public class FurtherBuildablesTest {
 
     @Test
     public void testBuildSceptre() {
-        // try 1 wood, 1 treasure and 1 sun stone
-        // then try 2 arrows, 2 sun stone 
+        DungeonManiaController dmc;
+        dmc = new DungeonManiaController();
+        DungeonResponse res = dmc.newGame("d_furtherBuildablesTest_testBuildSceptre",
+                "c_DoorsKeysTest_cannotWalkClosedDoor");
+
+        // Pick up materials
+        res = dmc.tick(Direction.RIGHT);
+        res = dmc.tick(Direction.RIGHT);
+        res = dmc.tick(Direction.RIGHT);
+        res = dmc.tick(Direction.RIGHT);
+
+        // Build first sceptre
+        res = assertDoesNotThrow(() -> dmc.build("sceptre"));
+
+        // Confirm inventory
+        assertEquals(1, TestUtils.getInventory(res, "sceptre").size());
+        assertEquals(1, TestUtils.getInventory(res, "sun_stone").size());
+        assertEquals(0, TestUtils.getInventory(res, "arrow").size());
+
+        // Pick up materials
+        res = dmc.tick(Direction.RIGHT);
+        res = dmc.tick(Direction.RIGHT);
+
+        // Build second sceptre
+        res = assertDoesNotThrow(() -> dmc.build("sceptre"));
+
+        // Confirm inventory
+        assertEquals(2, TestUtils.getInventory(res, "sceptre").size());
+        assertEquals(0, TestUtils.getInventory(res, "sun_stone").size());
+        assertEquals(0, TestUtils.getInventory(res, "treasure").size());
+        assertEquals(0, TestUtils.getInventory(res, "wood").size());
     }
 
     @Test
