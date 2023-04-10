@@ -258,18 +258,4 @@ public class TestUtils {
         return l1.containsAll(l2) && l2.containsAll(l1);
     }
 
-    public static int getDefeatedEnemiesCount(DungeonResponse dr) {
-        Optional<EntityResponse> playerResponse = TestUtils.getPlayer(dr);
-        if (playerResponse.isPresent()) {
-            EntityResponse entityResponse = playerResponse.get();
-            //Player player = (Player) entityResponse.getEntity();
-            //  int defeatedEnemiesCount = player.getDefeatedEnemiesCount();
-            //   return defeatedEnemiesCount;
-
-        }
-        int one = 1;
-        return one;
-
-    }
-
 }
