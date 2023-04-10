@@ -42,6 +42,6 @@
         }
     ],
     "goal-condition": {
-        "goal": "Micro"
+        "goal": "micro"
     }
 }

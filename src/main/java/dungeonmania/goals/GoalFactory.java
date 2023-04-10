@@ -23,7 +23,7 @@ public class GoalFactory {
             int treasureGoal = config.optInt("treasure_goal", 1);
             return new TreasureGoal(treasureGoal);
         case "micro":
-            int enemiesGoal = config.optInt("enemiesDefeatedCount", 1);
+            int enemiesGoal = config.optInt("enemy_goal", 1);
             return new Microevolution(enemiesGoal);
         default:
             return null;

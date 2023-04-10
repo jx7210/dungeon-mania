@@ -14,6 +14,7 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import dungeonmania.util.Direction;
 
 public class MicroevoGoalTest {
     // dungeon config = 1 spider, 0 spawner to defeat
@@ -21,14 +22,25 @@ public class MicroevoGoalTest {
     @Test
     @Tag("16-1")
     @DisplayName("Test player battles spider and spider dies")
-    public void testSpiderDiesWhenBattle() {
+    public void testOne() {
         DungeonManiaController controller = new DungeonManiaController();
-        DungeonResponse postBattleResponse = TestUtils.genericSpiderSequence(controller,
-                "c_battleTest_basicSpiderSpiderDies");
-        List<EntityResponse> entities = postBattleResponse.getEntities();
-        assertTrue(TestUtils.countEntityOfType(entities, "spider") == 0);
+        DungeonResponse initialResponse = controller.newGame("d_microTest_test1", "c_microTest_test1");
+
+        List<EntityResponse> entities = initialResponse.getEntities();
+        int spiderCount = TestUtils.countEntityOfType(entities, "spider");
+        assertEquals(1, TestUtils.countEntityOfType(entities, "player"));
+        assertEquals(1, spiderCount);
+
+        DungeonResponse postBattleResponse = controller.tick(Direction.RIGHT);
+
+        List<EntityResponse> postBattleEntities = postBattleResponse.getEntities();
+        assertTrue(TestUtils.countEntityOfType(postBattleEntities, "spider") == 0);
         Game game = controller.getGame();
         Player player = game.getPlayer();
         assertEquals(1, player.getDefeatedEnemiesCount());
+
+        // assert goal met
+        assertEquals("", TestUtils.getGoals(postBattleResponse));
     }
+
 }

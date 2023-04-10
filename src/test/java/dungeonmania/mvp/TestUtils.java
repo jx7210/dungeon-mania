@@ -262,7 +262,7 @@ public class TestUtils {
         Optional<EntityResponse> playerResponse = TestUtils.getPlayer(dr);
         if (playerResponse.isPresent()) {
             EntityResponse entityResponse = playerResponse.get();
-            //  Player player = (Player) entityResponse.getEntity();
+            //Player player = (Player) entityResponse.getEntity();
             //  int defeatedEnemiesCount = player.getDefeatedEnemiesCount();
             //   return defeatedEnemiesCount;
 
