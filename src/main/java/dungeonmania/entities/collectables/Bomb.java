@@ -49,15 +49,9 @@ public class Bomb extends LogicalEntity implements InventoryItem, Effectible {
 
     @Override
     public void onOverlap(GameMap map, Entity entity) {
-        if (state != State.SPAWNED)
-            return;
         if (entity instanceof Player) {
-            if (!((Player) entity).pickUp(this))
-                return;
             subs.stream().forEach(s -> s.unsubscribe(this));
-            map.destroyEntity(this);
         }
-        this.state = State.INVENTORY;
     }
 
     public void onPutDown(GameMap map, Position p) {

@@ -185,6 +185,10 @@ public class GameMap {
 
     private void triggerOverlapEvent(Entity entity) {
         List<Runnable> overlapCallbacks = new ArrayList<>();
+        if (entity instanceof Player) {
+            List<Entity> entities = getEntities(entity.getPosition());
+            overlapCallbacks.add(() -> ((Player) entity).collect(entities, this));
+        }
         getEntities(entity.getPosition()).forEach(e -> {
             if (e != entity && e instanceof Effectible)
                 overlapCallbacks.add(() -> ((Effectible) e).onOverlap(this, entity));
