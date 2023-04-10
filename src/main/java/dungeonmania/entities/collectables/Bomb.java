@@ -11,21 +11,24 @@ import dungeonmania.entities.Effectible;
 import dungeonmania.entities.Player;
 import dungeonmania.entities.Switch;
 import dungeonmania.entities.inventory.InventoryItem;
+import dungeonmania.entities.logicals.LogicalEntity;
 import dungeonmania.map.GameMap;
 
-public class Bomb extends Entity implements InventoryItem, Effectible {
+public class Bomb extends LogicalEntity implements InventoryItem, Effectible {
     public enum State {
         SPAWNED, INVENTORY, PLACED
     }
 
     public static final int DEFAULT_RADIUS = 1;
+    public static final String NOT_LOGICAL = "null";
     private State state;
     private int radius;
+    private GameMap gameMap;
 
     private List<Switch> subs = new ArrayList<>();
 
-    public Bomb(Position position, int radius) {
-        super(position);
+    public Bomb(Position position, int radius, String logic) {
+        super(position, logic);
         state = State.SPAWNED;
         this.radius = radius;
     }
@@ -35,7 +38,8 @@ public class Bomb extends Entity implements InventoryItem, Effectible {
     }
 
     public void notify(GameMap map) {
-        explode(map);
+        if (getLogicStrategy() == null)
+            explode(map);
     }
 
     @Override
@@ -82,5 +86,23 @@ public class Bomb extends Entity implements InventoryItem, Effectible {
 
     public void setState(State state) {
         this.state = state;
+    }
+
+    @Override
+    public void activate() {
+        explode(gameMap);
+    }
+
+    @Override
+    public void deactivate() {
+    }
+
+    @Override
+    public boolean isActivated() {
+        return false;
+    }
+
+    public void setMap(GameMap gameMap) {
+        this.gameMap = gameMap;
     }
 }

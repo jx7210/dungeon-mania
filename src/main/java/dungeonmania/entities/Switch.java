@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dungeonmania.entities.collectables.Bomb;
+import dungeonmania.entities.enemies.Unsubscribable;
+import dungeonmania.entities.logicals.Conductor;
+import dungeonmania.entities.logicals.LogicalEntity;
+import dungeonmania.entities.logicals.Wire;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
-public class Switch extends Entity implements Effectible {
+public class Switch extends Conductor implements Effectible, Unsubscribable {
     private boolean activated;
     private List<Bomb> bombs = new ArrayList<>();
+    private List<Wire> connectedWires = new ArrayList<>();
 
     public Switch(Position position) {
         super(position.asLayer(Entity.ITEM_LAYER));
@@ -30,6 +35,14 @@ public class Switch extends Entity implements Effectible {
         bombs.remove(b);
     }
 
+    public void subscribe(Wire w) {
+        connectedWires.add(w);
+    }
+
+    public void unsubscribe(Wire w) {
+        connectedWires.remove(w);
+    }
+
     @Override
     public boolean canMoveOnto(GameMap map, Entity entity) {
         return true;
@@ -38,14 +51,39 @@ public class Switch extends Entity implements Effectible {
     @Override
     public void onOverlap(GameMap map, Entity entity) {
         if (entity instanceof Boulder) {
+            // SCENARIO 1
             activated = true;
             bombs.stream().forEach(b -> b.notify(map));
+            for (Wire w : connectedWires) {
+                w.update();
+            }
+            for (LogicalEntity l : getAdjLogicalEntities()) {
+                l.update();
+            }
         }
     }
 
     public void onMovedAway(GameMap map, Entity entity) {
         if (entity instanceof Boulder) {
+            // SCENARIO 2
             activated = false;
+            for (Wire w : connectedWires) {
+                w.update();
+            }
+            for (LogicalEntity l : getAdjLogicalEntities()) {
+                l.update();
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy(GameMap map) {
+        // SCENARIO 3
+        for (Wire w : connectedWires) {
+            w.unsubscribe(this);
+        }
+        for (LogicalEntity l : getAdjLogicalEntities()) {
+            l.unsubscribe(this);
         }
     }
 
