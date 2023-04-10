@@ -114,4 +114,12 @@ public class DungeonManiaController {
         return null;
     }
 
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
 }
