@@ -84,6 +84,10 @@ public class Bomb extends LogicalEntity implements InventoryItem, Effectible {
         return state;
     }
 
+    public void setState(State state) {
+        this.state = state;
+    }
+
     @Override
     public void activate() {
         explode(gameMap);
