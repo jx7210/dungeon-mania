@@ -87,4 +87,19 @@ public class MicroevoGoalTest {
         // assert goal met
         assertEquals("", TestUtils.getGoals(initialResponse));
     }
+
+    // PLAYER DOESNT EXIST
+    // hmm still need to adjust to make return false happen - doesnt work for all the other goals either.
+    @Test
+    @Tag("16-3")
+    @DisplayName("Test player not exist thus goal not achieved")
+    public void testThree() {
+        DungeonManiaController controller = new DungeonManiaController();
+        DungeonResponse initialResponse = controller.newGame("d_microTest_test3", "c_microTest_test2");
+
+        List<EntityResponse> entities = initialResponse.getEntities();
+        assertEquals(0, TestUtils.countEntityOfType(entities, "player"));
+
+        assertEquals(1, TestUtils.getEntities(initialResponse, "zombie_toast").size());
+    }
 }
