@@ -68,21 +68,6 @@ public class GameMap {
                 }
             }
         }
-        /* 
-        for (LogicalEntity lEntity : lEntities) {
-            conductors = lEntity.getAdjConductors();
-            for (Conductor c : conductors) {
-                int count = 0;
-                for (Switch s : switches) {
-                    if (c.getSources().contains(s)) {
-                        count++;
-                    }
-                }
-                if (count == conductors.size()) {
-                    lEntities.setCoAndSource(s)
-                }
-            }
-        }*/
     }
 
     private void registerConnectedWires(Switch s, Position position, List<Wire> connectedWires, List<Wire> wires) {

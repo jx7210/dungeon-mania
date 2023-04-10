@@ -40,9 +40,8 @@ public abstract class LogicalEntity extends Entity {
         case "co_and":
             logicStrategy = new CoAndLogic();
             break;
-        case "null":
+        default:
             logicStrategy = null;
-            break;
         }
     }
 

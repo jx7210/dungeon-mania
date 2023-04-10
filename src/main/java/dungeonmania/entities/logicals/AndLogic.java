@@ -1,7 +1,8 @@
 package dungeonmania.entities.logicals;
+
 import java.util.List;
+
 public class AndLogic implements LogicStrategy {
-    
     public AndLogic() {
     }
 

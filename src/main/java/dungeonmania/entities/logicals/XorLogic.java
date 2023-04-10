@@ -3,7 +3,6 @@ package dungeonmania.entities.logicals;
 import java.util.List;
 
 public class XorLogic implements LogicStrategy {
-
     public XorLogic() {
     }
 
@@ -16,6 +15,4 @@ public class XorLogic implements LogicStrategy {
             logicalEntity.deactivate();
         }
     }
-    
-
 }
