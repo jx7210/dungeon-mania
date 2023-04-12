@@ -42,6 +42,6 @@
         }
     ],
     "goal-condition": {
-        "goal": "micro"
+        "goal": "enemies"
     }
 }
