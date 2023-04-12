@@ -20,7 +20,7 @@ public class Microevolution implements Goal {
     public String toString(Game game) {
         if (this.achieved(game))
             return "";
-        return ":Defeat " + target + " enemies + all spawners";
+        return ":enemies";
     }
 
 }

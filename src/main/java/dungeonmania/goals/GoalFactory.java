@@ -22,7 +22,7 @@ public class GoalFactory {
         case "treasure":
             int treasureGoal = config.optInt("treasure_goal", 1);
             return new TreasureGoal(treasureGoal);
-        case "micro":
+        case "enemies":
             int enemiesGoal = config.optInt("enemy_goal", 1);
             return new Microevolution(enemiesGoal);
         default:
