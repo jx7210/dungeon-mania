@@ -101,5 +101,8 @@ public class EnemyGoalTest {
         assertEquals(0, TestUtils.countEntityOfType(entities, "player"));
 
         assertEquals(1, TestUtils.getEntities(initialResponse, "zombie_toast").size());
+
+        // assert goal NOT met
+        assertEquals(":enemies", TestUtils.getGoals(initialResponse));
     }
 }
