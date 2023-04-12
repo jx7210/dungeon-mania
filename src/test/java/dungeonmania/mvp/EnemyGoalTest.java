@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import dungeonmania.util.Direction;
 
-public class MicroevoGoalTest {
+public class EnemyGoalTest {
     // dungeon config = 1 spider, 0 spawner to defeat
     // beat spider and pass both goals
     @Test
