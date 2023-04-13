@@ -8,7 +8,7 @@ import dungeonmania.entities.inventory.InventoryItem;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
-public class Sword extends Entity implements InventoryItem, BattleItem {
+public class Sword extends Entity implements InventoryItem, BattleItem, Usable {
     public static final double DEFAULT_ATTACK = 1;
     public static final double DEFAULT_ATTACK_SCALE_FACTOR = 1;
     public static final int DEFAULT_DURABILITY = 5;
@@ -40,10 +40,5 @@ public class Sword extends Entity implements InventoryItem, BattleItem {
     @Override
     public BattleStatistics applyBuff(BattleStatistics origin) {
         return BattleStatistics.applyBuff(origin, new BattleStatistics(0, attack, 0, 1, 1));
-    }
-
-    @Override
-    public int getDurability() {
-        return durability;
     }
 }

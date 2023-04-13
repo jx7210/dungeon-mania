@@ -3,6 +3,7 @@ package dungeonmania.entities.enemies;
 import dungeonmania.Game;
 import dungeonmania.entities.Interactable;
 import dungeonmania.entities.Player;
+import dungeonmania.entities.collectables.Usable;
 import dungeonmania.util.Position;
 
 public class ZombieToastSpawner extends Unsubscribable implements Interactable {
@@ -18,7 +19,7 @@ public class ZombieToastSpawner extends Unsubscribable implements Interactable {
 
     @Override
     public void interact(Player player, Game game) {
-        player.getInventory().getWeapon().use(game);
+        ((Usable) player.getInventory().getWeapon()).use(game);
         game.getMap().destroyEntity(this);
     }
 

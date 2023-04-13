@@ -1,12 +1,12 @@
 package dungeonmania.mvp;
 
 import dungeonmania.DungeonManiaController;
+import dungeonmania.response.models.BattleResponse;
 import dungeonmania.response.models.DungeonResponse;
+import dungeonmania.response.models.RoundResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 import dungeonmania.exceptions.*;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,8 +52,6 @@ public class FurtherBuildablesTest {
         assertEquals(1, TestUtils.getInventory(res, "sun_stone").size());
         assertEquals(2, TestUtils.getInventory(res, "wood").size());
 
-        // Add test for not having enough inventory...
-
         // Build shield
         res = assertDoesNotThrow(() -> dmc.build("shield"));
 
@@ -69,6 +67,9 @@ public class FurtherBuildablesTest {
         dmc = new DungeonManiaController();
         DungeonResponse res = dmc.newGame("d_furtherBuildablesTest_testCanBuildArmour",
                 "c_DoorsKeysTest_cannotWalkClosedDoor");
+
+        // Check that it can't be built
+        assertThrows(InvalidActionException.class, () -> dmc.build("midnight_armour"));
 
         // Pick up materials
         res = dmc.tick(Direction.RIGHT);
@@ -107,13 +108,44 @@ public class FurtherBuildablesTest {
     }
 
     @Test
-    public void testArmourReducesEnemyAttack() {
-        // u have to do maths to test these...
-        // maybe can just copy paste the battletests
-    }
+    public void testArmourEffect() throws InvalidActionException {
+        DungeonManiaController controller;
+        controller = new DungeonManiaController();
+        String config = "c_furtherBuildablesTest_testArmourEffect";
+        DungeonResponse res = controller.newGame("d_furtherBuildablesTest_testArmourEffect", config);
 
-    @Test
-    public void testArmourIncreasesPlayerAttack() {
+        // Pick up Materials
+        res = controller.tick(Direction.RIGHT);
+        res = controller.tick(Direction.RIGHT);
+        res = controller.tick(Direction.RIGHT);
+        res = controller.tick(Direction.RIGHT);
+
+        // Confirm inventory
+        assertEquals(1, TestUtils.getInventory(res, "sun_stone").size());
+        assertEquals(1, TestUtils.getInventory(res, "sword").size());
+        assertEquals(2, TestUtils.getInventory(res, "wood").size());
+
+        res = controller.build("midnight_armour");
+
+        res = controller.tick(Direction.RIGHT);
+
+        BattleResponse battle = res.getBattles().get(0);
+
+        RoundResponse firstRound = battle.getRounds().get(0);
+
+        // Assumption: Armour effect calculation to reduce damage makes enemyAttack =
+        // enemyAttack - Armour effect
+        int enemyAttack = Integer.parseInt(TestUtils.getValueFromConfigFile("spider_attack", config));
+        int shieldEffect = Integer.parseInt(TestUtils.getValueFromConfigFile("midnight_armour_defence", config));
+        int expectedDamage = (enemyAttack - shieldEffect) / 10;
+        // Delta health is negative so take negative here
+        assertEquals(expectedDamage, -firstRound.getDeltaCharacterHealth(), 0.001);
+
+        // Check if armour increases player attack damage
+        double playerBaseAttack = Double.parseDouble(TestUtils.getValueFromConfigFile("player_attack", config));
+        double armourAttack = Double.parseDouble(TestUtils.getValueFromConfigFile("midnight_armour_attack", config));
+
+        assertEquals((playerBaseAttack + armourAttack) / 5, -firstRound.getDeltaEnemyHealth(), 0.001);
     }
 
     @Test
@@ -153,7 +185,35 @@ public class FurtherBuildablesTest {
 
     @Test
     public void testControlMercenary() {
-        // this one is a bit hard
-    }
+        DungeonManiaController dmc;
+        dmc = new DungeonManiaController();
+        DungeonResponse res = dmc.newGame("d_furtherBuildablesTest_testControlMercenary",
+                "c_furtherBuildablesTest_testControlMercenary");
+        String mercId = TestUtils.getEntitiesStream(res, "mercenary").findFirst().get().getId();
 
+        // Pick up materials
+        res = dmc.tick(Direction.RIGHT);
+        res = dmc.tick(Direction.RIGHT);
+        res = dmc.tick(Direction.RIGHT);
+
+        // Check error trying to interact without sceptre
+        assertThrows(InvalidActionException.class, () -> dmc.interact(mercId));
+
+        // Build sceptre
+        res = assertDoesNotThrow(() -> dmc.build("sceptre"));
+        assertEquals(1, TestUtils.getInventory(res, "sceptre").size());
+
+        // attempt mind control
+        assertDoesNotThrow(() -> dmc.interact(mercId));
+
+        // Wait until mind control duration ends
+        res = dmc.tick(Direction.DOWN);
+        res = dmc.tick(Direction.DOWN);
+        res = dmc.tick(Direction.DOWN);
+        assertEquals(0, res.getBattles().size());
+
+        // Check that mercenary has snapped out of mind control and battles player
+        res = dmc.tick(Direction.DOWN);
+        assertEquals(1, res.getBattles().size());
+    }
 }

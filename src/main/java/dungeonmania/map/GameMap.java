@@ -16,6 +16,7 @@ import dungeonmania.entities.Switch;
 import dungeonmania.entities.collectables.Bomb;
 import dungeonmania.entities.enemies.Enemy;
 import dungeonmania.entities.enemies.Unsubscribable;
+import dungeonmania.entities.enemies.ZombieToast;
 import dungeonmania.entities.enemies.ZombieToastSpawner;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
@@ -271,5 +272,9 @@ public class GameMap {
 
     public int countSpawners() {
         return getEntities(ZombieToastSpawner.class).size();
+    }
+
+    public int countZombieToasts() {
+        return getEntities(ZombieToast.class).size();
     }
 }
