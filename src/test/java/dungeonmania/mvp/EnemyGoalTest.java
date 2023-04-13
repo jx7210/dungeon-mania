@@ -80,7 +80,7 @@ public class EnemyGoalTest {
 
         Game game = controller.getGame();
         Player player = game.getPlayer();
-        assertEquals(1, player.getDefeatedEnemiesCount());
+        assertEquals(0, player.getDefeatedEnemiesCount());
 
         // assert goal met
         assertEquals("", TestUtils.getGoals(initialResponse));
@@ -235,6 +235,7 @@ public class EnemyGoalTest {
         int zombieToastSpawnerCount = TestUtils.countEntityOfType(entities, "zombie_toast_spawner");
         int spiderCount = TestUtils.countEntityOfType(entities, "spider");
         assertEquals(1, TestUtils.countEntityOfType(entities, "player"));
+        assertEquals(1, spiderCount);
         assertEquals(1, zombieToastSpawnerCount);
         String spawnerId = TestUtils.getEntities(initialResponse, "zombie_toast_spawner").get(0).getId();
         assertThrows(InvalidActionException.class, () -> controller.interact(spawnerId));
@@ -282,7 +283,7 @@ public class EnemyGoalTest {
         List<EntityResponse> fourthBattleEntities = fourthBattleResponse.getEntities();
         assertTrue(TestUtils.countEntityOfType(fourthBattleEntities, "spider") == 0);
         assertTrue(TestUtils.countEntityOfType(fourthBattleEntities, "zombie_toast_spawner") == 0);
-        assertEquals(2, player.getDefeatedEnemiesCount());
+        assertEquals(1, player.getDefeatedEnemiesCount());
 
         // assert goal met
         assertEquals("", TestUtils.getGoals(fourthBattleResponse));
