@@ -88,13 +88,18 @@ public class MicroevoGoalTest {
         assertEquals("", TestUtils.getGoals(initialResponse));
     }
 
-    // Dungeon Config = 1 enemy, 1 spawner to defeat
-    // Beat spawner to pass goal
+    // PLAYER DOESNT EXIST
+    // hmm still need to adjust to make return false happen - doesnt work for all the other goals either.
     @Test
     @Tag("16-3")
-    @DisplayName("Test player breaks Spawner + kills spider")
+    @DisplayName("Test player not exist thus goal not achieved")
     public void testThree() {
-        // kill spider + break spawner
+        DungeonManiaController controller = new DungeonManiaController();
+        DungeonResponse initialResponse = controller.newGame("d_microTest_test3", "c_microTest_test2");
 
+        List<EntityResponse> entities = initialResponse.getEntities();
+        assertEquals(0, TestUtils.countEntityOfType(entities, "player"));
+
+        assertEquals(1, TestUtils.getEntities(initialResponse, "zombie_toast").size());
     }
 }

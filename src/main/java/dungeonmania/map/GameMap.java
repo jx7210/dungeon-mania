@@ -13,6 +13,9 @@ import dungeonmania.entities.Effectible;
 import dungeonmania.entities.Player;
 import dungeonmania.entities.Portal;
 import dungeonmania.entities.Switch;
+import dungeonmania.entities.logicals.Conductor;
+import dungeonmania.entities.logicals.LogicalEntity;
+import dungeonmania.entities.logicals.Wire;
 import dungeonmania.entities.collectables.Bomb;
 import dungeonmania.entities.enemies.Enemy;
 import dungeonmania.entities.enemies.Unsubscribable;
@@ -39,6 +42,70 @@ public class GameMap {
         initRegisterMovables();
         initRegisterSpawners();
         initRegisterBombsAndSwitches();
+        initRegisterLogicalEntities();
+        initRegisterLogicalSwitches();
+        initRegisterWires();
+        initBomb();
+    }
+
+    private void initBomb() {
+        List<Bomb> bombs = getEntities(Bomb.class);
+        for (Bomb b : bombs) {
+            b.setMap(this);
+        }
+    }
+
+    private void initRegisterLogicalEntities() {
+        List<LogicalEntity> lEntities = getEntities(LogicalEntity.class);
+        List<Conductor> conductors = getEntities(Conductor.class);
+        for (LogicalEntity lEntity : lEntities) {
+            List<Position> positions = lEntity.getPosition().getCardinallyAdjacentPositions();
+            for (Position position : positions) {
+                for (Conductor conductor : conductors) {
+                    if (position.equals(conductor.getPosition())) {
+                        lEntity.subscribe(conductor); //adjConductors
+                        conductor.subscribe(lEntity); //logicalEntities
+                    }
+                }
+            }
+        }
+    }
+
+    private void registerConnectedWires(Switch s, Position position, List<Wire> connectedWires, List<Wire> wires) {
+        List<Position> adjPositions = position.getCardinallyAdjacentPositions();
+        for (Position adj : adjPositions) {
+            for (Wire wire : wires) {
+                if (adj.equals(wire.getPosition()) && !connectedWires.contains(wire)) {
+                    connectedWires.add(wire);
+                    s.subscribe(wire); //connectedWires
+                    wire.subscribe(s); //sources
+                    registerConnectedWires(s, wire.getPosition(), connectedWires, wires);
+                }
+            }
+        }
+    }
+
+    private void initRegisterLogicalSwitches() {
+        List<Switch> switches = getEntities(Switch.class);
+        List<Wire> wires = getEntities(Wire.class);
+        List<Wire> connectedWires = new ArrayList<>();
+        for (Switch s : switches) {
+            registerConnectedWires(s, s.getPosition(), connectedWires, wires);
+        }
+    }
+
+    private void initRegisterWires() {
+        List<Conductor> conductors = getEntities(Conductor.class);
+        for (Conductor conductor1 : conductors) {
+            List<Position> positions = conductor1.getPosition().getCardinallyAdjacentPositions();
+            for (Position position : positions) {
+                for (Conductor conductor2 : conductors) {
+                    if (position.equals(conductor2.getPosition())) {
+                        conductor1.subscribe(conductor2);
+                    }
+                }
+            }
+        }
     }
 
     private void initRegisterBombsAndSwitches() {
