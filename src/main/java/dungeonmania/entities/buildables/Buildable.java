@@ -9,5 +9,4 @@ public abstract class Buildable extends Entity implements InventoryItem, BattleI
     public Buildable(Position position) {
         super(position);
     }
-
 }

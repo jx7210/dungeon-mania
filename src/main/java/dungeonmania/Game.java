@@ -88,6 +88,9 @@ public class Game {
 
     public Game build(String buildable) throws InvalidActionException {
         List<String> buildables = player.getBuildables();
+        if (buildable.equals("midnight_armour") && getMap().countZombieToasts() > 0) {
+            throw new InvalidActionException(String.format("%s cannot be built", buildable));
+        }
         if (!buildables.contains(buildable)) {
             throw new InvalidActionException(String.format("%s cannot be built", buildable));
         }

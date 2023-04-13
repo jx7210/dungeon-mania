@@ -1,6 +1,5 @@
 package dungeonmania.entities;
 
-import dungeonmania.Game;
 import dungeonmania.battles.BattleStatistics;
 
 /**
@@ -8,6 +7,4 @@ import dungeonmania.battles.BattleStatistics;
  */
 public interface BattleItem {
     public BattleStatistics applyBuff(BattleStatistics origin);
-    public void use(Game game);
-    public int getDurability();
 }

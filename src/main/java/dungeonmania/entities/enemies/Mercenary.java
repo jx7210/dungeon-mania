@@ -28,6 +28,10 @@ public class Mercenary extends Enemy implements Interactable {
     private MoveStategy runAway = new RunAway();
     private MoveStategy random = new RandomMove();
 
+    private boolean mindControlled = false;
+    private int controlledCount = 0;
+    private int mindControlDuration;
+
     public Mercenary(Position position, double health, double attack, int bribeAmount, int bribeRadius,
             double allyAttack, double allyDefence) {
         super(position, health, attack);
@@ -70,7 +74,12 @@ public class Mercenary extends Enemy implements Interactable {
     @Override
     public void interact(Player player, Game game) {
         allied = true;
-        bribe(player);
+        if (!player.hasSceptre()) {
+            bribe(player);
+        } else {
+            mindControlDuration = player.getMindControlDuration();
+            mindControlled = true;
+        }
         if (!isAdjacentToPlayer && Position.isAdjacent(player.getPosition(), getPosition()))
             isAdjacentToPlayer = true;
     }
@@ -81,11 +90,16 @@ public class Mercenary extends Enemy implements Interactable {
         GameMap map = game.getMap();
         Player player = game.getPlayer();
         if (allied) {
-            // Chase player
+            if (mindControlled && controlledCount == mindControlDuration) {
+                mindControlled = false;
+                allied = false;
+                controlledCount = 0;
+            }
             nextPos = isAdjacentToPlayer ? player.getPreviousDistinctPosition()
                     : map.dijkstraPathFind(getPosition(), player.getPosition(), this);
             if (!isAdjacentToPlayer && Position.isAdjacent(player.getPosition(), nextPos))
                 isAdjacentToPlayer = true;
+            controlledCount++;
         } else if (map.getPlayer().getEffectivePotion() instanceof InvisibilityPotion) {
             // Move random
             nextPos = random.move(nextPos, map, this);
@@ -101,6 +115,9 @@ public class Mercenary extends Enemy implements Interactable {
 
     @Override
     public boolean isInteractable(Player player) {
+        if (player.hasSceptre()) {
+            return true;
+        }
         return !allied && canBeBribed(player);
     }
 
