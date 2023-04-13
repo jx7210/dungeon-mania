@@ -2,9 +2,10 @@ package dungeonmania.entities;
 
 import dungeonmania.Game;
 import dungeonmania.entities.buildables.Bow;
+import dungeonmania.entities.buildables.MidnightArmour;
+import dungeonmania.entities.buildables.Sceptre;
 import dungeonmania.entities.buildables.Shield;
 import dungeonmania.entities.collectables.*;
-import dungeonmania.entities.collectables.Sword;
 import dungeonmania.entities.enemies.*;
 import dungeonmania.entities.logicals.LightBulb;
 import dungeonmania.entities.logicals.SwitchDoor;
@@ -125,6 +126,17 @@ public class EntityFactory {
         return new Shield(shieldDurability, shieldDefence);
     }
 
+    public MidnightArmour buildMidnightAmour() {
+        double armourAttack = config.optDouble("midnight_armour_attack", MidnightArmour.DEFAULT_ATTACK);
+        double armourDefence = config.optDouble("midnight_armour_defence", MidnightArmour.DEFAULT_DEFENCE);
+        return new MidnightArmour(armourAttack, armourDefence);
+    }
+
+    public Sceptre buildSceptre() {
+        int mindControlDuration = config.optInt("mind_control_duration", Sceptre.DEFAULT_DURATION);
+        return new Sceptre(mindControlDuration);
+    }
+
     private Entity constructEntity(JSONObject jsonEntity, JSONObject config) {
         Position pos = new Position(jsonEntity.getInt("x"), jsonEntity.getInt("y"));
 
@@ -178,6 +190,8 @@ public class EntityFactory {
             return new Door(pos, jsonEntity.getInt("key"));
         case "key":
             return new Key(pos, jsonEntity.getInt("key"));
+        case "sun_stone":
+            return new SunStone(pos);
         case "wire":
             return new Wire(pos);
         case "light_bulb_off":

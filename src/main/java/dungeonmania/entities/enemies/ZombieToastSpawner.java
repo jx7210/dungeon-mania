@@ -4,6 +4,7 @@ import dungeonmania.Game;
 import dungeonmania.entities.Entity;
 import dungeonmania.entities.Interactable;
 import dungeonmania.entities.Player;
+import dungeonmania.entities.collectables.Usable;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
@@ -26,7 +27,7 @@ public class ZombieToastSpawner extends Entity implements Interactable, Unsubscr
 
     @Override
     public void interact(Player player, Game game) {
-        player.getInventory().getWeapon().use(game);
+        ((Usable) player.getInventory().getWeapon()).use(game);
         game.getMap().destroyEntity(this);
     }
 
