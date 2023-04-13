@@ -13,8 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class FurtherBuildablesTest {
 
-    // Honestly, preference of which material is consumed isn't a requirement in the spec
-    // so prob won't be tested in any autotests. Ok to add in our tests tho
     @Test
     public void testOpenDoor() {
         DungeonManiaController dmc;
@@ -103,7 +101,7 @@ public class FurtherBuildablesTest {
         assertEquals(1, TestUtils.getInventory(res, "sun_stone").size());
         assertEquals(1, TestUtils.getInventory(res, "sword").size());
 
-        // Build armour 
+        // Build armour
         assertThrows(InvalidActionException.class, () -> dmc.build("midnight_armour"));
     }
 
