@@ -76,7 +76,7 @@ public class Inventory {
             items.remove(wood.get(0));
             items.remove(wood.get(1));
             if (sunStones.size() >= 1) {
-                return factory.buildSceptre();
+                return factory.buildShield();
             } else if (treasure.size() >= 1) {
                 items.remove(treasure.get(0));
             } else if (keys.size() >= 1) {
