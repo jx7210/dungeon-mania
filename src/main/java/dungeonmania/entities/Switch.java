@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dungeonmania.entities.collectables.Bomb;
-import dungeonmania.entities.enemies.Unsubscribable;
+import dungeonmania.entities.enemies.OnDestroy;
 import dungeonmania.entities.logicals.Conductor;
 import dungeonmania.entities.logicals.LogicalEntity;
 import dungeonmania.entities.logicals.Wire;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
-public class Switch extends Conductor implements Effectible, Unsubscribable {
+public class Switch extends Conductor implements OnOverlap, OnDestroy {
     private boolean activated;
     private List<Bomb> bombs = new ArrayList<>();
     private List<Wire> connectedWires = new ArrayList<>();
