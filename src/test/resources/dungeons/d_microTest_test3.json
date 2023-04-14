@@ -27,6 +27,6 @@
         }
     ],
     "goal-condition": {
-        "goal": "exit"
+        "goal": "enemies"
     }
 }
