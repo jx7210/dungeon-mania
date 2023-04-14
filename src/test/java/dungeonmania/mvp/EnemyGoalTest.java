@@ -289,12 +289,4 @@ public class EnemyGoalTest {
         assertEquals("", TestUtils.getGoals(fourthBattleResponse));
     }
 
-    // Dungeon Config = 1 zombie toast, 1 spawner to defeat
-    // beat all enemies and spawners
-    @Test
-    @Tag("16-9")
-    @DisplayName("Test player achieving basic enemy goal kill 1 zombie toast - 1 spawner")
-    public void testNine() {
-
-    }
 }
