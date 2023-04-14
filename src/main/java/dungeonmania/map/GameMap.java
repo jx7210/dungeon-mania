@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 import dungeonmania.Game;
 import dungeonmania.entities.Entity;
-import dungeonmania.entities.Effectible;
+import dungeonmania.entities.OnOverlap;
 import dungeonmania.entities.Player;
 import dungeonmania.entities.Portal;
 import dungeonmania.entities.Switch;
@@ -18,7 +18,7 @@ import dungeonmania.entities.logicals.LogicalEntity;
 import dungeonmania.entities.logicals.Wire;
 import dungeonmania.entities.collectables.Bomb;
 import dungeonmania.entities.enemies.Enemy;
-import dungeonmania.entities.enemies.Unsubscribable;
+import dungeonmania.entities.enemies.OnDestroy;
 import dungeonmania.entities.enemies.ZombieToast;
 import dungeonmania.entities.enemies.ZombieToastSpawner;
 import dungeonmania.util.Direction;
@@ -191,8 +191,8 @@ public class GameMap {
             overlapCallbacks.add(() -> ((Player) entity).collect(entities, this));
         }
         getEntities(entity.getPosition()).forEach(e -> {
-            if (e != entity && e instanceof Effectible)
-                overlapCallbacks.add(() -> ((Effectible) e).onOverlap(this, entity));
+            if (e != entity && e instanceof OnOverlap)
+                overlapCallbacks.add(() -> ((OnOverlap) e).onOverlap(this, entity));
         });
         overlapCallbacks.forEach(callback -> {
             callback.run();
@@ -272,8 +272,8 @@ public class GameMap {
 
     public void destroyEntity(Entity entity) {
         removeNode(entity);
-        if (entity instanceof Unsubscribable) {
-            ((Unsubscribable) entity).onDestroy(this);
+        if (entity instanceof OnDestroy) {
+            ((OnDestroy) entity).onDestroy(this);
         }
     }
 

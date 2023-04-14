@@ -7,6 +7,7 @@ import java.util.Queue;
 import dungeonmania.battles.BattleStatistics;
 import dungeonmania.battles.Battleable;
 import dungeonmania.entities.collectables.Bomb;
+import dungeonmania.entities.collectables.Key;
 import dungeonmania.entities.collectables.Bomb.State;
 import dungeonmania.entities.collectables.SunStone;
 import dungeonmania.entities.collectables.Treasure;
@@ -22,7 +23,7 @@ import dungeonmania.map.GameMap;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
-public class Player extends Entity implements Battleable, Effectible {
+public class Player extends Entity implements Battleable, OnOverlap {
     public static final double DEFAULT_ATTACK = 5.0;
     public static final double DEFAULT_HEALTH = 5.0;
     private BattleStatistics battleStatistics;
@@ -82,6 +83,9 @@ public class Player extends Entity implements Battleable, Effectible {
                 ((Bomb) entity).setState(State.INVENTORY);
             }
             if (entity instanceof InventoryItem) {
+                if (entity instanceof Key && inventory.count(Key.class) == 1) {
+                    return;
+                }
                 pickUp(entity);
                 map.destroyEntity(entity);
             }
