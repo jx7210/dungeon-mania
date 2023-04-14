@@ -24,6 +24,8 @@ public abstract class Potion extends Entity implements InventoryItem, BattleItem
         return duration;
     }
 
+    public abstract BattleStatistics getBuff();
+
     @Override
     public BattleStatistics applyBuff(BattleStatistics origin) {
         return origin;

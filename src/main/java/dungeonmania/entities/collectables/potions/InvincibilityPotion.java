@@ -16,4 +16,9 @@ public class InvincibilityPotion extends Potion {
         return BattleStatistics.applyBuff(origin, new BattleStatistics(0, 0, 0, 1, 1, true, true));
     }
 
+    @Override
+    public BattleStatistics getBuff() {
+        return new BattleStatistics(0, 0, 0, 1, 1, true, true);
+    }
+
 }
