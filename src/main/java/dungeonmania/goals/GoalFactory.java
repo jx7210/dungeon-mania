@@ -22,9 +22,15 @@ public class GoalFactory {
         case "treasure":
             int treasureGoal = config.optInt("treasure_goal", 1);
             return new TreasureGoal(treasureGoal);
+<<<<<<< src/main/java/dungeonmania/goals/GoalFactory.java
         case "enemies":
             int enemiesGoal = config.optInt("enemy_goal", 1);
             return new EnemyGoal(enemiesGoal);
+=======
+        case "micro":
+            int enemiesGoal = config.optInt("enemy_goal", 1);
+            return new Microevolution(enemiesGoal);
+>>>>>>> src/main/java/dungeonmania/goals/GoalFactory.java
         default:
             return null;
         }
