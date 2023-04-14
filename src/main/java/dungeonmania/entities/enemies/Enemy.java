@@ -4,12 +4,12 @@ import dungeonmania.Game;
 import dungeonmania.battles.BattleStatistics;
 import dungeonmania.battles.Battleable;
 import dungeonmania.entities.Entity;
-import dungeonmania.entities.Effectible;
+import dungeonmania.entities.OnOverlap;
 import dungeonmania.entities.Player;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
-public abstract class Enemy extends Entity implements Battleable, Effectible, Unsubscribable {
+public abstract class Enemy extends Entity implements Battleable, OnOverlap, OnDestroy {
     private BattleStatistics battleStatistics;
 
     public Enemy(Position position, double health, double attack) {

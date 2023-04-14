@@ -8,7 +8,7 @@ import dungeonmania.entities.collectables.Usable;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
-public class ZombieToastSpawner extends Entity implements Interactable, Unsubscribable {
+public class ZombieToastSpawner extends Entity implements Interactable, OnDestroy {
     public static final int DEFAULT_SPAWN_INTERVAL = 0;
 
     public ZombieToastSpawner(Position position, int spawnInterval) {

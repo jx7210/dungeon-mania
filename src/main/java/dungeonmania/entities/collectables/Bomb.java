@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import dungeonmania.entities.Entity;
-import dungeonmania.entities.Effectible;
+import dungeonmania.entities.OnOverlap;
 import dungeonmania.entities.Player;
 import dungeonmania.entities.Switch;
 import dungeonmania.entities.inventory.InventoryItem;
 import dungeonmania.entities.logicals.LogicalEntity;
 import dungeonmania.map.GameMap;
 
-public class Bomb extends LogicalEntity implements InventoryItem, Effectible {
+public class Bomb extends LogicalEntity implements InventoryItem, OnOverlap {
     public enum State {
         SPAWNED, INVENTORY, PLACED
     }
