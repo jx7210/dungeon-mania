@@ -6,4 +6,6 @@ Karen's personal blog:
 https://unswcse.atlassian.net/l/cp/SXfeyDRA 
 
 Joanne's personal blog:
-
+https://unswcse.atlassian.net/l/cp/a0q7dGkJ
+https://unswcse.atlassian.net/l/cp/Wh1Z6DFA
+https://unswcse.atlassian.net/l/cp/vBqdMceP
