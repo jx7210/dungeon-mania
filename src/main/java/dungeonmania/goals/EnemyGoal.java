@@ -2,10 +2,10 @@ package dungeonmania.goals;
 
 import dungeonmania.Game;
 
-public class Microevolution implements Goal {
+public class EnemyGoal implements Goal {
     private int target;
 
-    public Microevolution(int target) {
+    public EnemyGoal(int target) {
         this.target = target;
     }
 
@@ -20,7 +20,7 @@ public class Microevolution implements Goal {
     public String toString(Game game) {
         if (this.achieved(game))
             return "";
-        return ":Defeat " + target + " enemies + all spawners";
+        return ":enemies";
     }
 
 }
